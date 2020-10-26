@@ -1,20 +1,8 @@
-package servidortarea1;
+package servidortarea2;
+import servidortarea1.*;
 import java.net.*; 
 import java.io.*; 
-
 public class ClientFullDuplex { 
-
-    private static String ip;
-    private static int puertoS;
-    
-    public ClientFullDuplex(){
-        ip = "localhost";
-        puertoS = Integer.parseInt("12345");
-    }
-    public ClientFullDuplex(String ipS, String puert){
-        ip = ipS;
-        puertoS = Integer.parseInt(puert);
-    }
 	public static void main (String[] argumentos)throws IOException{ 
 		Socket cliente = null; 
 		PrintWriter escritor = null; 
@@ -26,9 +14,9 @@ public class ClientFullDuplex {
 		BufferedReader DatosTeclado = new BufferedReader ( new InputStreamReader (System.in)); 
 
 		if (argumentos.length != 2){ 
-			maquina = "localhost"; 
-			puerto = 12345; 
-			System.out.println ("Establecidos valores por defecto:\nEQUIPO = localhost\nPORT = 12345"); 
+			maquina = "127.0.0.1"; 
+			puerto = 12346; 
+			System.out.println ("Establecidos valores por defecto:\nEQUIPO = localhost\nPORT = 12346"); 
 		} 
 		else{ 
 			maquina = argumentos[0]; 
@@ -69,39 +57,5 @@ public class ClientFullDuplex {
 			escritor.close(); 
 		}catch (Exception e){}
 	}
-
-    public void conectarServidor(String trama){
-                Socket cliente = null; 
-		PrintWriter escritor = null; 
-		String DatosEnviados = "Datos enviados"; 
-
-		try{ 
-			cliente = new Socket (ip,puertoS); 
-		}catch (Exception e){ 
-			System.out.println ("Fallo : "+ e.toString()); 
-			System.exit (0); 
-		}
-		try{ 
-			escritor = new PrintWriter(cliente.getOutputStream(), true);
- 
-		}catch (Exception e){ 
-			System.out.println ("Fallo : "+ e.toString()); 
-			//cliente.close(); 
-			System.exit (0); 
-		} 
-                
-		System.out.println("Conectado con el Servidor " + ip + " en puerto: " + puertoS);
-		DatosEnviados = trama; 
-                
-                escritor.println (DatosEnviados); 
-		DatosEnviados = "FIN"; 
-	
-		System.out.println ("Finalizada conexion con el servidor"); 
-		try{ 
-			escritor.close(); 
-		}catch (Exception e){}
-        
-    }
-        
 } 
 

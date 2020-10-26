@@ -167,8 +167,20 @@ public class MultiServerThread extends Thread {
                             escritor.flush();
                             break;
                         default:
-                            escritor.println("Echo... "+lineIn);
-                            escritor.flush();
+                            escritor.println("buscando servicio: "+ idMs );
+                            DirS directorio = new DirS();
+                            String[] servidor = directorio.buscarServidor(idMs);
+                            escritor.println(servidor[0]+"... "+servidor[1]);
+                            if(servidor != null){
+                                escritor.println("Client FullDuplex... ");
+                                ClientFullDuplex clienteN = new ClientFullDuplex(servidor[0], servidor[1]);
+                                clienteN.conectarServidor(lineIn);
+                                escritor.println(servidor[0]+"... "+servidor[1]);
+                                escritor.flush();
+                            }else{
+                                escritor.println("Echo... "+lineIn);
+                                escritor.flush();
+                            }
                             break;
                     }
                 }else{
