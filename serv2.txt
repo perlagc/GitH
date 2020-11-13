@@ -1,0 +1,5 @@
+min;13777
+alea;13777
+cuantos;13777
+num2text;13777
+concat;13777

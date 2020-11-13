@@ -1,0 +1,5 @@
+crypt;19666
+decrypt;19666
+cuantos;19666
+alea;19666
+suma_0_n;19666

@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servidortarea1;
+package servidor3;
+import servidor1.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -28,14 +29,15 @@ public class DirS {
         try(Stream<String> lines = Files.lines(Paths.get(archivo))){
             lines.filter(line -> line.contains(delimiter)).forEach(line -> var.putIfAbsent(line.split(delimiter)[0], line.split(delimiter)[1]));
         }
-        //System.out.println(var);      
+        //System.out.println(var);  
     }
     public String[] buscarServidor(String servicio) throws IOException{
-        leerDirectorio("D:/Documentos/UPIITA/servidores.txt", directorio);
+        leerDirectorio("D:/Documentos/GitHub/GitH/servidores.txt", directorio);
         Iterator it = directorio.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry e = (Map.Entry)it.next();  
             leerDirectorio(e.getValue().toString(), servidorA);
+            //System.out.println(servidorA);
             Iterator it2 = servidorA.entrySet().iterator();
             while (it2.hasNext()) {
                 Map.Entry a = (Map.Entry)it2.next();

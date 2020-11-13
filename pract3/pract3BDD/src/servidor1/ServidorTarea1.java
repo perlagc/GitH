@@ -3,21 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servidortarea2;
+package servidor1;
 
-import servidortarea1.*;
 
 /**
  *
  * @author hsmha
  */
 public class ServidorTarea1 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
     
+      
+
 }

@@ -1,4 +1,5 @@
-package servidortarea1;
+package servidor3;
+import servidor1.*;
 import java.net.*;
 import java.io.*;
 public class ServerMultiClient{
@@ -8,7 +9,7 @@ public class ServerMultiClient{
 	Socket socketCliente = null;
 
 	try{
-	   socketServidor = new ServerSocket (12345);
+	   socketServidor = new ServerSocket (21333);
 	}catch (Exception e){
 	   System.out.println ("Error : "+ e.toString());
 	   System.exit (0);

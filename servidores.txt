@@ -1,0 +1,4 @@
+localhost;D:/Documentos/GitHub/GitH/serv1.txt
+127.0.0.3;D:/Documentos/GitHub/GitH/serv2.txt
+127.0.0.2;D:/Documentos/GitHub/GitH/serv3.txt
+127.0.0.1;D:/Documentos/GitHub/GitH/serv4.txt

@@ -1,4 +1,4 @@
-package servidortarea1;
+package servidor1;
 import java.net.*; 
 import java.io.*; 
 
@@ -12,7 +12,7 @@ public class ClientFullDuplex {
         puertoS = Integer.parseInt("12345");
     }
     public ClientFullDuplex(String ipS, String puert){
-        ip = ipS;
+        ip = "localhost";
         puertoS = Integer.parseInt(puert);
     }
 	public static void main (String[] argumentos)throws IOException{ 
@@ -81,7 +81,7 @@ public class ClientFullDuplex {
 			System.out.println ("Fallo : "+ e.toString()); 
 			System.exit (0); 
 		}
-		try{ 
+		/*try{ 
 			escritor = new PrintWriter(cliente.getOutputStream(), true);
  
 		}catch (Exception e){ 
@@ -89,7 +89,7 @@ public class ClientFullDuplex {
 			//cliente.close(); 
 			System.exit (0); 
 		} 
-                
+                */
 		System.out.println("Conectado con el Servidor " + ip + " en puerto: " + puertoS);
 		DatosEnviados = trama; 
                 

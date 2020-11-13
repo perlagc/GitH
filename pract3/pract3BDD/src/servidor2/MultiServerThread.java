@@ -1,6 +1,5 @@
-package servidortarea2;
+package servidor2;
 
-import servidortarea1.*;
 import java.net.*;
 import java.io.*;
 import java.util.Date;
