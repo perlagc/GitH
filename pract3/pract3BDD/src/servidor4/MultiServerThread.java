@@ -1,4 +1,4 @@
-package servidor3;
+package servidor4;
 
 import java.net.*;
 import java.io.*;
@@ -111,12 +111,12 @@ public class MultiServerThread extends Thread {
                                     escritor.println("#R-cuantos#" + ServerMultiClient.NoClients+ "#");
                                     escritor.flush();
                                     break;
-                                case "may":
+                              /*  case "may":
                                     p = infocad(cad, position, num);
                                     escritor.println("#R-may#" + num+ "#" + p.toUpperCase()+ "#");
                                     escritor.flush();
                                     break;
-                                /*case "min":
+                                case "min":
                                     p = infocad(cad, position, num);
                                     escritor.println("#R-min#" + num+ "#" + p.toLowerCase()+ "#");
                                     escritor.flush();
@@ -129,13 +129,13 @@ public class MultiServerThread extends Thread {
                                     }
                                     escritor.println("#R-inv#" + num+ "#" + invertida + "#");
                                     escritor.flush();
-                                    break;*/
+                                    break;
                                 case "len":
                                     p = infocad(cad, position, num);
                                     escritor.println("#R-len#" + num+ "#" + p.length() + "#");
                                     escritor.flush();
-                                    break;
-                                /*case "alea":
+                                    break;*/
+                                case "alea":
                                     p = info(cad, position);
                                     int nAle = num = Integer.parseInt (String.valueOf(p));
                                     Random aleatorio = new Random(System.currentTimeMillis());
@@ -143,7 +143,7 @@ public class MultiServerThread extends Thread {
                                     
                                     escritor.println("#R-alea#" + num+ "#" + intAletorio + "#");
                                     break;
-                                case "num2text":
+                                /*case "num2text":
                                     p = info(cad, position);
                                     escritor.println("#R-num2text#" + num+ "#" + p + "#");
                                     break;
@@ -161,7 +161,7 @@ public class MultiServerThread extends Thread {
                                     p = desencriptar(p);
                                     escritor.println("#R-decrypt#" + num+ "#" + p + "#");
                                     break;
-                                /*case "suma_0_n":
+                                case "suma_0_n":
                                     p = info(cad, position);
                                     int nTot = 0;
                                     int nSum = Integer.parseInt (String.valueOf(p));
@@ -169,7 +169,7 @@ public class MultiServerThread extends Thread {
                                         nTot = i + nTot;
                                     }
                                     escritor.println("#R-suma_0_n#" + num+ "#" + nTot + "#");
-                                    break;*/
+                                    break;
                             }
                         }else if(servidor != null){
                             ClientFullDuplex clienteN = new ClientFullDuplex(servidor[0], servidor[1]);

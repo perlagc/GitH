@@ -1,4 +1,4 @@
-package servidor3;
+package servidor4;
 import java.net.*; 
 import java.io.*; 
 
@@ -9,7 +9,7 @@ public class ClientFullDuplex {
     
     public ClientFullDuplex(){
         ip = "localhost";
-        puertoS = Integer.parseInt("21333");
+        puertoS = Integer.parseInt("19666");
     }
     public ClientFullDuplex(String ipS, String puert){
         ip = "localhost";
@@ -27,8 +27,8 @@ public class ClientFullDuplex {
 
 		if (argumentos.length != 2){ 
 			maquina = "localhost"; 
-			puerto = 21333; 
-			System.out.println ("Establecidos valores por defecto:\nEQUIPO = localhost\nPORT = 21333"); 
+			puerto = 19666; 
+			System.out.println ("Establecidos valores por defecto:\nEQUIPO = localhost\nPORT = 19666"); 
 		} 
 		else{ 
 			maquina = argumentos[0]; 
@@ -69,7 +69,6 @@ public class ClientFullDuplex {
 			escritor.close(); 
 		}catch (Exception e){}
 	}
-
         
 } 
 

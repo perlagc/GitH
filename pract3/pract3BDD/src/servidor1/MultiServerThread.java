@@ -172,9 +172,7 @@ public class MultiServerThread extends Thread {
                                     break;*/
                             }
                         }else if(servidor != null){
-                            //escritor.println("Client FullDuplex... ");
-                            ClientFullDuplex clienteN = new ClientFullDuplex(servidor[0], servidor[1]);
-                            clienteN.conectarServidor(lineIn);
+                            ClientFullDuplex clienteN = new ClientFullDuplex(servidor[0], servidor[1], lineIn);
                             escritor.println(servidor[0]+"... "+servidor[1]);
                             escritor.flush();
                         }else{

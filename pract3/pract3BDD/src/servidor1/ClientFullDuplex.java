@@ -6,19 +6,24 @@ public class ClientFullDuplex {
 
     private static String ip;
     private static int puertoS;
+    private static String DatosEnviados = null; 
+    private static String maquina; 
+    private static int puerto; 
+    private static String line;
     
     public ClientFullDuplex(){
         ip = "localhost";
         puertoS = Integer.parseInt("12345");
+        
     }
-    public ClientFullDuplex(String ipS, String puert){
+    public ClientFullDuplex(String ipS, String puerto, String lineIn){
         ip = "localhost";
-        puertoS = Integer.parseInt(puert);
+        puertoS = Integer.parseInt(puerto);
+        DatosEnviados = lineIn; 
     }
 	public static void main (String[] argumentos)throws IOException{ 
 		Socket cliente = null; 
 		PrintWriter escritor = null; 
-		String DatosEnviados = null; 
 		BufferedReader entrada=null;
 		
 		String maquina; 
@@ -51,7 +56,7 @@ public class ClientFullDuplex {
 			cliente.close(); 
 			System.exit (0); 
 		} 
-		String line;
+		
 		
 		System.out.println("Conectado con el Servidor. Listo para enviar datos...");
 		
@@ -70,17 +75,20 @@ public class ClientFullDuplex {
 		}catch (Exception e){}
 	}
 
-    public void conectarServidor(String trama){
+        
+          public void conectarServidor(String trama){
                 Socket cliente = null; 
 		PrintWriter escritor = null; 
-		String DatosEnviados = "Datos enviados"; 
-
+                System.out.println ("Conectado a " + maquina + " en puerto: " + puerto); 
+		
 		try{ 
 			cliente = new Socket (ip,puertoS); 
 		}catch (Exception e){ 
 			System.out.println ("Fallo : "+ e.toString()); 
 			System.exit (0); 
 		}
+            
+			
 		/*try{ 
 			escritor = new PrintWriter(cliente.getOutputStream(), true);
  
@@ -92,8 +100,12 @@ public class ClientFullDuplex {
                 */
 		System.out.println("Conectado con el Servidor " + ip + " en puerto: " + puertoS);
 		DatosEnviados = trama; 
+                line = trama;
                 
                 escritor.println (DatosEnviados); 
+                
+		System.out.println(line);
+                        
 		DatosEnviados = "FIN"; 
 	
 		System.out.println ("Finalizada conexion con el servidor"); 
@@ -101,7 +113,9 @@ public class ClientFullDuplex {
 			escritor.close(); 
 		}catch (Exception e){}
         
-    }
+          }            
+                
+                
         
 } 
 
