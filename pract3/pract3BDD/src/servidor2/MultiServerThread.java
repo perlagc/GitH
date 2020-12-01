@@ -1,4 +1,5 @@
 package servidor2;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -11,7 +12,6 @@ import java.lang.annotation.Native;
 public class MultiServerThread extends Thread {
    private Socket socket = null;
    private int c;
-
    private static String encriptar(String s) throws UnsupportedEncodingException{
         return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
     }
@@ -103,7 +103,7 @@ public class MultiServerThread extends Thread {
                         DirS directorio = new DirS();
                         String[] servidor = directorio.buscarServidor(idMs);
                         //escritor.println(servidor[0] + "... " + servidor[1]);
-                        if(servidor[1].compareTo("12345") == 0){
+                        if(servidor[1].compareTo("13777") == 0){
                             position = idMs.length() + numv.length() + 3;
                             switch(idMs){
                                 case "cuantos":
@@ -170,15 +170,49 @@ public class MultiServerThread extends Thread {
                                     escritor.println("#R-suma_0_n#" + num+ "#" + nTot + "#");
                                     break;*/
                             }
-                        }else if(servidor != null){
-                            ClientFullDuplex clienteN = new ClientFullDuplex(servidor[0], servidor[1], lineIn);
-                            escritor.println(servidor[0]+"... "+servidor[1]);
-                            escritor.flush();
-                        }else{
-                            escritor.println("Echo... "+lineIn);
-                            escritor.flush();
+                        }else if(servidor[1] != null){
+                            PrintWriter escritorX = null;
+                            String DatosEnviadosX = null;
+                            BufferedReader entradaX =null;
+                            Socket clienteX = null; 
+                            String lineX;
+                            int existe = 0;
+                            
+                            try{
+                                clienteX = new Socket (servidor[0],Integer.parseInt (String.valueOf(servidor[1]))); 
+                                System.out.println("Connected to another server");
+                                existe = 1;
+                            }catch (Exception e){
+                                System.out.println ("Fallo : "+ e.toString());
+                                escritor.flush();
+                            }
+                            
+                            if(existe == 1){
+                            try{
+                                escritorX = new PrintWriter(clienteX.getOutputStream(), true);
+                                entradaX=new BufferedReader(new InputStreamReader(clienteX.getInputStream()));
+                            }catch (Exception e){
+                                System.out.println ("Fallo : "+ e.toString());
+                                clienteX.close();
+                                escritor.flush();  
+                            }
+                            DatosEnviadosX = "Solicitud de 12345";
+                            escritorX.println (DatosEnviadosX);
+                            escritorX.println (lineIn);
+                            lineIn = entradaX.readLine();
+                            escritorX.println ("FIN");
+                            clienteX.close();
+                            escritorX.close();
+                            entradaX.close();
+                            escritor.println(lineIn);
+                            escritor.flush();}else{
+                            escritor.println("No se puede procesar la petición");
+                            }
                         }
-                    }        
+                    }else{
+                            escritor.println("Error... "+lineIn);
+                            escritor.flush();
+                        }        
                 }
              }
          try{		

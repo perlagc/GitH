@@ -6,24 +6,19 @@ public class ClientFullDuplex {
 
     private static String ip;
     private static int puertoS;
-    private static String DatosEnviados = null; 
-    private static String maquina; 
-    private static int puerto; 
-    private static String line;
     
     public ClientFullDuplex(){
         ip = "localhost";
         puertoS = Integer.parseInt("13777");
-        
     }
-    public ClientFullDuplex(String ipS, String puerto, String lineIn){
+    public ClientFullDuplex(String ipS, String puert){
         ip = "localhost";
-        puertoS = Integer.parseInt(puerto);
-        DatosEnviados = lineIn; 
+        puertoS = Integer.parseInt(puert);
     }
 	public static void main (String[] argumentos)throws IOException{ 
 		Socket cliente = null; 
 		PrintWriter escritor = null; 
+		String DatosEnviados = null; 
 		BufferedReader entrada=null;
 		
 		String maquina; 
@@ -56,7 +51,7 @@ public class ClientFullDuplex {
 			cliente.close(); 
 			System.exit (0); 
 		} 
-		
+		String line;
 		
 		System.out.println("Conectado con el Servidor. Listo para enviar datos...");
 		
@@ -75,46 +70,5 @@ public class ClientFullDuplex {
 		}catch (Exception e){}
 	}
 
-        
-          public void conectarServidor(String trama){
-                Socket cliente = null; 
-		PrintWriter escritor = null; 
-                //System.out.println ("Conectado a " + maquina + " en puerto: " + puerto); 
-		
-		try{ 
-			cliente = new Socket (ip,puertoS); 
-		}catch (Exception e){ 
-			System.out.println ("Fallo : "+ e.toString()); 
-			System.exit (0); 
-		}
-            
-			
-		/*try{ 
-			escritor = new PrintWriter(cliente.getOutputStream(), true);
- 
-		}catch (Exception e){ 
-			System.out.println ("Fallo : "+ e.toString()); 
-			//cliente.close(); 
-			System.exit (0); 
-		} 
-                */
-		System.out.println("Conectado con el Servidor " + ip + " en puerto: " + puertoS);
-		DatosEnviados = trama; 
-                line = trama;
-                
-                escritor.println (DatosEnviados); 
-                
-		System.out.println(line);
-                        
-		DatosEnviados = "FIN"; 
-	
-		System.out.println ("Finalizada conexion con el servidor"); 
-		try{ 
-			escritor.close(); 
-		}catch (Exception e){}
-        
-          }            
-                
-                
         
 } 
