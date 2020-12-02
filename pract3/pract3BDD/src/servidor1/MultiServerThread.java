@@ -174,6 +174,8 @@ public class MultiServerThread extends Thread {
                                     escritor.println("#R-suma_0_n#" + num+ "#" + nTot + "#");
                                     break;*/
                                 case "q":
+                                   // BD prueba = null;
+                               //     prueba.prueba();
                                     break;
                                 
                             }
@@ -195,29 +197,28 @@ public class MultiServerThread extends Thread {
                             }
                             
                             if(existe == 1){
-                            try{
-                                escritorX = new PrintWriter(clienteX.getOutputStream(), true);
-                                entradaX=new BufferedReader(new InputStreamReader(clienteX.getInputStream()));
-                            }catch (Exception e){
-                                System.out.println ("Fallo : "+ e.toString());
+                                try{
+                                    escritorX = new PrintWriter(clienteX.getOutputStream(), true);
+                                    entradaX=new BufferedReader(new InputStreamReader(clienteX.getInputStream()));
+                                }catch (Exception e){
+                                    System.out.println ("Fallo : "+ e.toString());
+                                    clienteX.close();
+                                    escritor.flush();   
+                                }
+                                escritorX.println (lineIn);
+                                lineIn = entradaX.readLine();
+                                escritorX.println ("FIN");
                                 clienteX.close();
+                                escritorX.close();
+                                entradaX.close();
+                                escritor.println(lineIn);
                                 escritor.flush();
-                            }
-                            DatosEnviadosX = "Solicitud de 12345";
-                            escritorX.println (DatosEnviadosX);
-                            escritorX.println (lineIn);
-                            lineIn = entradaX.readLine();
-                            escritorX.println ("FIN");
-                            clienteX.close();
-                            escritorX.close();
-                            entradaX.close();
-                            escritor.println(lineIn);
-                            escritor.flush();}else{
-                            escritor.println("No se puede procesar la petición");
+                            }else{
+                                escritor.println("No se puede procesar la petición");
                             }
                         }
                     }else{
-                            escritor.println("Error... "+lineIn);
+                            escritor.println("No se puede procesar la petición: "+lineIn);
                             escritor.flush();
                         }        
                 }

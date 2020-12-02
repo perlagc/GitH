@@ -197,8 +197,6 @@ public class MultiServerThread extends Thread {
                                 clienteX.close();
                                 escritor.flush();
                             }
-                            DatosEnviadosX = "Solicitud de 12345";
-                            escritorX.println (DatosEnviadosX);
                             escritorX.println (lineIn);
                             lineIn = entradaX.readLine();
                             escritorX.println ("FIN");

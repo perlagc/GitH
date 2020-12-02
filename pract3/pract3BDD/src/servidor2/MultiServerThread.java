@@ -196,8 +196,6 @@ public class MultiServerThread extends Thread {
                                 clienteX.close();
                                 escritor.flush();  
                             }
-                            DatosEnviadosX = "Solicitud de 12345";
-                            escritorX.println (DatosEnviadosX);
                             escritorX.println (lineIn);
                             lineIn = entradaX.readLine();
                             escritorX.println ("FIN");
@@ -210,7 +208,7 @@ public class MultiServerThread extends Thread {
                             }
                         }
                     }else{
-                            escritor.println("Error... "+lineIn);
+                            escritor.println("No se puede procesar la petición: "+lineIn);
                             escritor.flush();
                         }        
                 }
