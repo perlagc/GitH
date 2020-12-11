@@ -53,6 +53,46 @@ public class MultiServerThread extends Thread {
         String idMs = String.copyValueOf(p).trim();
         return idMs;
     }
+   private void conectaServidor(String[] servidor, PrintWriter escritor, String lineIn) throws IOException{
+       
+                            PrintWriter escritorX = null;
+                            String DatosEnviadosX = null;
+                            BufferedReader entradaX =null;
+                            Socket clienteX = null; 
+                            String lineX;
+                            int existe = 0;
+                            
+                            try{
+                                clienteX = new Socket (servidor[0],Integer.parseInt (String.valueOf(servidor[1]))); 
+                                System.out.println("Connected to another server");
+                                existe = 1;
+                            }catch (Exception e){
+                                System.out.println ("Fallo : "+ e.toString());
+                                escritor.flush();
+                            }
+                            
+                            if(existe == 1){
+                                try{
+                                    escritorX = new PrintWriter(clienteX.getOutputStream(), true);
+                                    entradaX=new BufferedReader(new InputStreamReader(clienteX.getInputStream()));
+                                }catch (Exception e){
+                                    System.out.println ("Fallo : "+ e.toString());
+                                    clienteX.close();
+                                    escritor.flush();   
+                                }
+                                escritorX.println (lineIn);
+                                lineIn = entradaX.readLine();
+                                escritorX.println ("FIN");
+                                clienteX.close();
+                                escritorX.close();
+                                entradaX.close();
+                                escritor.println(lineIn);
+                                escritor.flush();
+                            }else{
+                                escritor.println("No se puede procesar la petición");
+                            }
+   }
+   
    public MultiServerThread(Socket socket) {
       super("MultiServerThread");
       this.socket = socket;
@@ -100,10 +140,13 @@ public class MultiServerThread extends Thread {
                         String numv = info(cad, (c+2));
                         int num = Integer.parseInt (String.valueOf(numv));      //no. parametros
                         
+                        //escritor.println("Servicio: "+idMs); 
                         //escritor.println("buscando servicio: "+ idMs );
                         DirS directorio = new DirS();
-                        String[] servidor = directorio.buscarServidor(idMs);
+                        String[] servidor = new String[3];
+                        servidor = directorio.buscarServidor(idMs);
                         //escritor.println(servidor[0] + "... " + servidor[1]);
+                        
                         if (servidor == null){
                             escritor.println("Echo... "+lineIn);
                             escritor.flush();
@@ -174,48 +217,44 @@ public class MultiServerThread extends Thread {
                                     escritor.println("#R-suma_0_n#" + num+ "#" + nTot + "#");
                                     break;*/
                                 case "q":
-                                   // BD prueba = null;
-                               //     prueba.prueba();
+                                    c = 0;
+                                    char w[] = new char[cad.length - position - 1];
+                                    for( int i = position; i <= (cad.length - 2); i++){
+                                            w[c] = cad[i];
+                                            c++;
+                                    }
+                                    p = String.copyValueOf(w);
+                                    String[] t = p.split("#");
+                                    
+                                    int n = 0;
+                                    boolean existe = true;
+                                    String ex = null;
+                                    /*for (int i = 0; i <= t.length -1 ; i++){
+                                        existe = servidor[2].contains(t[n]);
+                                        if(existe == false) break;
+                                        //{i = (t.length -1);}
+                                    }*/
+                                    while (n!=(t.length)){
+                                        existe = servidor[2].contains(t[n]);
+                                        if(existe){ex = ex + "1";}else{ex = ex + "0";}
+                                        n++;
+                                    }
+                                    
+                                    if (ex.contains("0")){
+                                        System.out.println("Buscando en otro servidor...");
+                                        conectaServidor(servidor, escritor, lineIn);
+                                    }else{
+                                        String cons = "";
+                                        for (int i = 1; i <= t.length -1 ; i++){
+                                            cons = cons + t[i] + " ";
+                                        }
+                                        escritor.println("#R-q#" + num + "#" + "select " + cons + "from "+ t[0] +"#");
+                                    }
                                     break;
                                 
                             }
                         }else if(servidor[1] != null){
-                            PrintWriter escritorX = null;
-                            String DatosEnviadosX = null;
-                            BufferedReader entradaX =null;
-                            Socket clienteX = null; 
-                            String lineX;
-                            int existe = 0;
-                            
-                            try{
-                                clienteX = new Socket (servidor[0],Integer.parseInt (String.valueOf(servidor[1]))); 
-                                System.out.println("Connected to another server");
-                                existe = 1;
-                            }catch (Exception e){
-                                System.out.println ("Fallo : "+ e.toString());
-                                escritor.flush();
-                            }
-                            
-                            if(existe == 1){
-                                try{
-                                    escritorX = new PrintWriter(clienteX.getOutputStream(), true);
-                                    entradaX=new BufferedReader(new InputStreamReader(clienteX.getInputStream()));
-                                }catch (Exception e){
-                                    System.out.println ("Fallo : "+ e.toString());
-                                    clienteX.close();
-                                    escritor.flush();   
-                                }
-                                escritorX.println (lineIn);
-                                lineIn = entradaX.readLine();
-                                escritorX.println ("FIN");
-                                clienteX.close();
-                                escritorX.close();
-                                entradaX.close();
-                                escritor.println(lineIn);
-                                escritor.flush();
-                            }else{
-                                escritor.println("No se puede procesar la petición");
-                            }
+                            conectaServidor(servidor, escritor, lineIn);
                         }
                     }else{
                             escritor.println("No se puede procesar la petición: "+lineIn);

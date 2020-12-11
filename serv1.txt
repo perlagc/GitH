@@ -4,3 +4,4 @@ inv;12345
 len;12345
 alea;12345
 cuantos;12345
+q&TABLA1&idcuenta&curp&saldo;12345

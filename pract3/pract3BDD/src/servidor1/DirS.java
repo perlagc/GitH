@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 public class DirS {
     private Map<String, String> directorio = new HashMap<>();
     private Map<String, String> servidorA = new HashMap<>();
-    String[] datos = new String[2];
+    String[] datos = new String[3];
     
     
     public void leerDirectorio(String archivo, Map var) throws IOException{
@@ -40,9 +40,12 @@ public class DirS {
             Iterator it2 = servidorA.entrySet().iterator();
             while (it2.hasNext()) {
                 Map.Entry a = (Map.Entry)it2.next();
-                if(a.getKey().toString().compareTo(servicio)==0){
+                String[] t = a.getKey().toString().split("&");
+                String llave = t[0];
+                if(llave.compareTo(servicio)==0){
                     datos[0] = e.getKey().toString();
                     datos[1] = a.getValue().toString();
+                    datos[2] = a.getKey().toString();
                     //System.out.println(datos[0]+"... "+datos[1]);
                     return datos;
                 }
